@@ -1,49 +1,54 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %}Employee index{% endblock %} {%
+block body %}
 
-{% block title %}Employee index{% endblock %}
+<h1>Employee index</h1>
+<div class="container my-3">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>PhoneNumber</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Position</th>
+        <th>Salary</th>
+        <th>BirthDate</th>
+        <th>actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for employee in employees %}
+      <tr>
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.firstname }}</td>
+        <td>{{ employee.lastname }}</td>
+        <td>{{ employee.phoneNumber }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.address }}</td>
+        <td>{{ employee.position }}</td>
+        <td>{{ employee.salary }}</td>
+        <td>
+          {{ employee.birthDate ? employee.birthDate|date('Y-m-d') : '' }}
+        </td>
+        <td>
+          <a href="{{ path('app_employee_show', { id: employee.id }) }}"
+            >show</a
+          >
+          <a href="{{ path('app_employee_edit', { id: employee.id }) }}"
+            >edit</a
+          >
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="10">no records found</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
-{% block body %}
-    <h1>Employee index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>PhoneNumber</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Position</th>
-                <th>Salary</th>
-                <th>BirthDate</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for employee in employees %}
-            <tr>
-                <td>{{ employee.id }}</td>
-                <td>{{ employee.firstname }}</td>
-                <td>{{ employee.lastname }}</td>
-                <td>{{ employee.phoneNumber }}</td>
-                <td>{{ employee.email }}</td>
-                <td>{{ employee.address }}</td>
-                <td>{{ employee.position }}</td>
-                <td>{{ employee.salary }}</td>
-                <td>{{ employee.birthDate ? employee.birthDate|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_employee_show', {'id': employee.id}) }}">show</a>
-                    <a href="{{ path('app_employee_edit', {'id': employee.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_employee_new') }}">Create new</a>
+  <a href="{{ path('app_employee_new') }}">Create new</a>
+</div>
 {% endblock %}
